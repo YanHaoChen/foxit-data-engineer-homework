@@ -58,7 +58,7 @@ def create_dag(forum):
             }
         })
 
-        post_ids = [result.post_id for result in results]
+        post_ids = [result['postID'] for result in results]
 
         if len(post_ids) == 0:
             logging.info(f'!!!!! No post in {forum}')
@@ -96,6 +96,7 @@ def create_dag(forum):
         this_end_date = this_start_date + interval
         logging.info(f'!!!!! Date of the period: {this_start_date} to {this_end_date}.')
         utc = pytz.UTC
+
         def date_filter(post):
             this_post_date = datetime.fromisoformat(post['createdAt'].rstrip('Z'))
             return this_start_date <= utc.localize(this_post_date) < this_end_date
@@ -134,9 +135,9 @@ def create_dag(forum):
                     'topics': got_post.get('topics', []),
                 })
                 logging.info(f'!!!!! Got post {post_id}.')
-                time.sleep(random.randint(8, 20))
+                time.sleep(random.randint(15, 30))
 
-            time.sleep(random.randint(15, 20))
+            time.sleep(random.randint(15, 30))
             logging.info(f'!!!!! Get next page posts before {oldest_id}.')
             next_page_url = f'https://www.dcard.tw/service/api/v2/forums/{forum}/posts?limit=100&before={oldest_id}'
             logging.info(f'!!!!! url: {next_page_url}')
@@ -175,7 +176,7 @@ def create_dag(forum):
 
         import time
         ti = context['ti']
-        post_ids = ti.xcom_push(task_ids='check_post_exist', key='post_ids')
+        post_ids = ti.xcom_pull(task_ids='check_post_exist', key='post_ids')
 
         mongo_hook = MongoHook(conn_id='dcard')
         dcard_db = mongo_hook.get_conn().dcard
@@ -204,8 +205,10 @@ def create_dag(forum):
                 return 'update_has_error'
 
             logging.info(f'!!!!! update post {post_id}. result: {result}')
-            time.sleep(random.randint(8, 20))
-        pass
+            time.sleep(random.randint(15, 30))
+
+        logging.info(f'!!!!! updating is finished!')
+        return 'update_done'
 
     update_posts_task = BranchPythonOperator(
         task_id='update_posts',
@@ -217,6 +220,11 @@ def create_dag(forum):
 
     done_task = DummyOperator(
         task_id='done',
+        dag=dag
+    )
+
+    update_done_task = DummyOperator(
+        task_id='update_done',
         dag=dag
     )
 
@@ -232,32 +240,9 @@ def create_dag(forum):
 
     check_post_exist_task >> [crawl_forum_task, update_posts_task]
     crawl_forum_task >> [done_task, has_error_task]
-    update_posts_task >> [done_task, update_has_error_task]
+    update_posts_task >> [update_done_task, update_has_error_task]
 
     return dag
 
 
-
 apple_dag = create_dag(forum='apple')
-
-
-# import requests
-# from datetime import datetime
-#
-# def tttt():
-#
-#
-#     resp = requests.get(
-#         f'https://www.dcard.tw/service/api/v2/forums/apple/posts?limit=100')
-#     data = resp.json()
-#     old_time = datetime(year=2021, month=9, day=26, hour=0)
-#
-#     def date_filter(post):
-#         this_post_date = datetime.fromisoformat(post['createdAt'].rstrip('Z'))
-#         return this_post_date > old_time
-#
-#     newlist = filter(date_filter, data)
-#     print(len(list(newlist)))
-# #
-# if __name__ == '__main__':
-#     tttt()
