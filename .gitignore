@@ -1,0 +1,6 @@
+venv/
+macvenv/
+__pycache__
+*.swp
+.idea
+.DS_Store

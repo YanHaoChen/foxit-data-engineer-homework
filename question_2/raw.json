@@ -1,0 +1,112 @@
+{
+    "completions": [
+        {
+            "created_at": 1612850273,
+            "id": 2001,
+            "lead_time": 2552.251,
+            "result": [
+                {
+                    "from_name": "ner",
+                    "id": "IpAlj7cp63",
+                    "to_name": "text",
+                    "type": "hypertextlabels",
+                    "value": {
+                        "end": "/h1[1]/a[1]/text()[1]",
+                        "endOffset": 24,
+                        "htmllabels": [
+                            "Contract Title"
+                        ],
+                        "start": "/h1[1]/text()[1]",
+                        "startOffset": 0,
+                        "text": "Mutual Confidentiality and Non-Disclosure Agreement"
+                    }
+                },
+                {
+                    "from_name": "ner",
+                    "id": "GrK2W6QwCs",
+                    "to_name": "text",
+                    "type": "hypertextlabels",
+                    "value": {
+                        "end": "/p[2]/text()[1]",
+                        "endOffset": 352,
+                        "htmllabels": [
+                            "Commencement"
+                        ],
+                        "start": "/p[2]/text()[1]",
+                        "startOffset": 0,
+                        "text": "In order to protect certain confidential information which may be disclosed between them, NewNet Communication Technologies, LLC and the undersigned company (each referred to as a “Party” or collectively as the “Parties”) agree to the following terms and conditions (the “Agreement”) to cover disclosure of the Confidential Information described below:"
+                    }
+                },
+                {
+                    "from_name": "ner",
+                    "id": "gXVcsH6WEX",
+                    "to_name": "text",
+                    "type": "hypertextlabels",
+                    "value": {
+                        "end": "/p[21]/text()[2]",
+                        "endOffset": 155,
+                        "htmllabels": [
+                            "CI Definition"
+                        ],
+                        "start": "/p[21]/text()[2]",
+                        "startOffset": 2,
+                        "text": "Either Party may terminate this Agreement by giving the other Party written notice thereof at least thirty (30) days prior to the effective date thereof."
+                    }
+                },
+                {
+                    "from_name": "ner",
+                    "id": "mNB7O1NnNG",
+                    "to_name": "text",
+                    "type": "hypertextlabels",
+                    "value": {
+                        "end": "/p[21]/text()[3]",
+                        "endOffset": 125,
+                        "htmllabels": [
+                            "Survival"
+                        ],
+                        "start": "/p[21]/text()[3]",
+                        "startOffset": 1,
+                        "text": "However, the obligations of this Agreement shall survive termination for the three (3) year period described in paragraph 3."
+                    }
+                },
+                {
+                    "from_name": "ner",
+                    "id": "U4eD_TQ614",
+                    "to_name": "text",
+                    "type": "hypertextlabels",
+                    "value": {
+                        "end": "/p[24]/text()[2]",
+                        "endOffset": 271,
+                        "htmllabels": [
+                            "Assignment and Succssor"
+                        ],
+                        "start": "/p[24]/text()[2]",
+                        "startOffset": 3,
+                        "text": "Neither Party may delegate its obligations hereunder or assign its rights as a Recipient without the prior written consent of the other Party, and any purported assignment or delegation in violation of this Agreement will be void and deemed a breach of this Agreement."
+                    }
+                },
+                {
+                    "from_name": "ner",
+                    "id": "BwoMq7Bjp3",
+                    "to_name": "text",
+                    "type": "hypertextlabels",
+                    "value": {
+                        "end": "/p[25]/text()[2]",
+                        "endOffset": 386,
+                        "htmllabels": [
+                            "Entire Agreement"
+                        ],
+                        "start": "/p[25]/text()[2]",
+                        "startOffset": 0,
+                        "text": "Except by a specific written instrument duly executed by both Paties, this Agreement sets forth the entire understanding of the Parties with respect to the subject matter hereof; incorporates and merges any and all previous agreements, understandings, and communications (oral or written) with respect to the subject matter of this Agreement and may not be modified, amended or waived. "
+                    }
+                }
+            ]
+        }
+    ],
+    "data": {
+        "filename": "1qpqQsbhhUq.html",
+        "text": "<html> html_content </html>"
+    },
+    "id": 23
+}
