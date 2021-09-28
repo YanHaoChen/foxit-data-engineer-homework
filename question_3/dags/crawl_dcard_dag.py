@@ -32,6 +32,7 @@ def create_dag(forum):
     dag = DAG(
         dag_id=f'crawl_dcard_{forum}_dag',
         default_args=args,
+        max_active_runs=1,
         schedule_interval='1 0/6 * * *',
         start_date=days_ago(1),
     )
@@ -180,7 +181,7 @@ def create_dag(forum):
 
         mongo_hook = MongoHook(conn_id='dcard')
         dcard_db = mongo_hook.get_conn().dcard
-
+        logging.info(f'!!!!! need update count: {len(post_ids)}.')
         for post_id in post_ids:
             try:
                 resp = requests.get(f'https://www.dcard.tw/service/api/v2/posts/{post_id}')
