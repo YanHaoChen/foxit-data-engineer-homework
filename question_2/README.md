@@ -1,17 +1,38 @@
-# Question 1
+# Question 2
 
 ### Answer
 
-```sql
-SELECT
-    Author,
-    Title,
-    Content
-FROM Documnet as doc 
-    LEFT JOIN Content as con 
-        ON doc.DocumentId = con.DocumentId
+* answer_2.py
+```python
+import json
+
+
+def main():
+    with open('./raw.json') as f:
+        content = json.load(f)
+    content_id = content['data']['filename'].rstrip('.html')
+
+    def sort_condition(this_result):
+        return this_result['value']['endOffset'] - this_result['value']['startOffset']
+
+    def output_format(raw_result):
+        return {
+            "label": raw_result["value"]["htmllabels"][0],
+            "sentence": raw_result["value"]["text"],
+            "contract_id": content_id,
+        }
+
+    contracts = content['completions']
+
+    for contract in contracts:
+        results = contract['result']
+        sorted_results = sorted(results, key=sort_condition)
+        print(list(map(output_format, sorted_results)))
+
+
+if __name__ == '__main__':
+    main()
 ```
 
 ### Note
- * 兩張 Table 都沒有 `Subtype` 欄位。
- * 如為 `Content.DocumentId` 建 Index，或主鍵改為(`DocumentId,ContentId`)的組合，預期會有更好的效能。
+ * `htmllabels` 可能有多個 label，目前只取第一個。

@@ -1,8 +1,17 @@
-# Question 2
+# Question 1
 
 ### Answer
 
-* answer_2.py
+```sql
+SELECT
+    Author,
+    Title,
+    Content
+FROM Documnet as doc 
+    LEFT JOIN Content as con 
+        ON doc.DocumentId = con.DocumentId
+```
 
 ### Note
- * `htmllabels` 可能有多個 label，目前只取第一個。
+ * 兩張 Table 都沒有 `Subtype` 欄位。
+ * 如為 `Content.DocumentId` 建 Index，或主鍵改為(`DocumentId,ContentId`)的組合，預期會有更好的效能。
